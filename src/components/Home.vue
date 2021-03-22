@@ -1,8 +1,7 @@
 <template>
-  <div>Welcome to Insurance Posts from Ilyos Abdurahmonov</div>
-  <h3>{{ currentCount }}</h3>
-  <button @click="increment">+</button>
-  <button @click="decrement">-</button>
+  <a-layout-content>
+    <h1 v-text="$t('about-us')"></h1>
+  </a-layout-content>
 </template>
 
 <script>
