@@ -1,12 +1,8 @@
 <template>
-  <a-row :gutter="[24, 24]">
-    <a-col :span="6">
-      <sidebar />
-    </a-col>
-    <a-col :span="18">
-      <h1>Posts</h1>
-    </a-col>
-  </a-row>
+  <Sidebar />
+  <a-layout-content>
+    <h1 v-text="$tc('post', 2)" class="text-capitalize"></h1>
+  </a-layout-content>
 </template>
 
 <script>
@@ -19,3 +15,5 @@ export default {
   setup() {},
 };
 </script>
+
+<style scoped></style>
