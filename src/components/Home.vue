@@ -19,6 +19,7 @@ export default {
       currentCount,
     };
   },
+  components: {},
   methods: {
     ...mapMutations(["increment", "decrement"]),
   },

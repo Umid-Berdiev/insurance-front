@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import axios from "axios";
+import postModule from "./postModule";
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/api";
 
@@ -8,25 +9,32 @@ const store = createStore({
   state() {
     return {
       user: null,
+      isLoading: false,
     };
   },
   mutations: {
     setUserData(state, userData) {
       state.user = userData;
       localStorage.setItem("user", JSON.stringify(userData));
-      axios.defaults.headers.common.Authorization = `Bearer ${userData.token}`;
+      axios.defaults.headers.common.Authorization = `Bearer ${userData.data.token}`;
     },
 
     clearUserData() {
       localStorage.removeItem("user");
       location.reload();
     },
+
+    setLoading(state, payload) {
+      state.isLoading = payload;
+    },
   },
 
   actions: {
     login({ commit }, credentials) {
-      return axios.post("/auth/login", credentials).then(({ data }) => {
+      commit("setLoading", true);
+      axios.post("/auth/login", credentials).then(({ data }) => {
         commit("setUserData", data);
+        commit("setLoading", false);
       });
     },
 
@@ -37,6 +45,11 @@ const store = createStore({
 
   getters: {
     isLogged: (state) => !!state.user,
+    loadingState: (state) => state.isLoading,
+  },
+
+  modules: {
+    postModule,
   },
 });
 

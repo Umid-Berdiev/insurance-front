@@ -21,14 +21,24 @@
               $tc("test", 2)
             }}</router-link>
           </a-menu-item>
-          <a-menu-item key="4">
+          <!-- <a-menu-item key="4">
             <router-link to="/login">Login</router-link>
-          </a-menu-item>
+          </a-menu-item> -->
         </a-menu>
       </a-col>
       <a-col class="ml-auto">
+        <a-button
+          class="text-capitalize"
+          type="danger"
+          @click="logout()"
+          v-if="isLogged"
+        >
+          {{ $t("logout") }}
+        </a-button>
+        <a-button class="text-capitalize" type="primary" v-else>
+          <router-link to="/login">{{ $t("login") }}</router-link>
+        </a-button>
         <switch-language />
-        <button type="button" @click="logout()" v-if="isLogged">Logout</button>
       </a-col>
     </a-row>
   </a-layout-header>
@@ -37,7 +47,7 @@
 <script>
 import { defineComponent, ref, computed } from "vue";
 import SwitchLanguage from "../SwitchLanguage.vue";
-import { useStore } from "vuex";
+import { mapActions, useStore } from "vuex";
 
 export default defineComponent({
   components: { SwitchLanguage },
@@ -46,15 +56,16 @@ export default defineComponent({
 
     const isLogged = computed(() => store.getters.isLogged);
 
-    const logout = () => {
-      this.$store.dispatch("logout");
-    };
+    const logout = () => store.dispatch("logout");
 
     return {
       selectedKeys1: ref(["1"]),
       isLogged,
       logout,
     };
+  },
+  methods: {
+    ...mapActions(["logout"]),
   },
 });
 </script>

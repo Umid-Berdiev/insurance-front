@@ -2,5 +2,7 @@
   "enter": "kirish",
   "post": "maqola | maqolalar",
   "about-us": "Muallif haqida",
-  "test": "test | testlar"
+  "test": "test | testlar",
+  "login": "kirish",
+  "logout": "chiqish"
 }
